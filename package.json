@@ -1,0 +1,17 @@
+{
+  "name": "softuni-back-end",
+  "version": "1.0.0",
+  "description": "JS Back-End Workshop",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js" 
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
