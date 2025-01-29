@@ -8,7 +8,11 @@ movieContorller.get('/create', (req, res) => {
 });
 
 movieContorller.post('/create', (req, res) => {
+    const newMovie = req.body;
     
+    movieService.create(newMovie);
+
+    res.redirect('/');
 });
 
 movieContorller.get('/:movieId/details', (req, res) => {
