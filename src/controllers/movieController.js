@@ -3,6 +3,10 @@ import movieService from "../services/movieService.js";
 
 const movieContorller = Router();
 
+movieContorller.get('/search', (req, res) => {
+    res.render('search');
+})
+
 movieContorller.get('/create', (req, res) => {
     res.render('create');
 });
