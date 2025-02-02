@@ -16,7 +16,7 @@ export default {
         if (filter.year) {
             result = result.filter(movie => movie.year === filter.year);
         }
-        return movies;
+        return result;
     },
     findMovie(movieId) {
          const result = movies.find(movie => movie.id === movieId);
