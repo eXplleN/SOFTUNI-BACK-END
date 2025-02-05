@@ -21,9 +21,9 @@ movieContorller.post('/create', (req, res) => {
     res.redirect('/');
 });
 
-movieContorller.get('/:movieId/details', (req, res) => {
+movieContorller.get('/:movieId/details', async (req, res) => {
     const movieId = req.params.movieId;
-    const movie = movieService.findMovie(movieId);
+    const movie = await movieService.getMovie(movieId);
     
     res.render('details', { movie });
 });
