@@ -3,9 +3,9 @@ import movieService from "../services/movieService.js";
 
 const movieContorller = Router();
 
-movieContorller.get('/search', (req, res) => {
-    const filter =req.query;
-    const movies = movieService.getAll(filter);
+movieContorller.get('/search', async (req, res) => {
+    const filter = req.query;
+    const movies = await movieService.getAll(filter);
     res.render('search', { movies, filter });
 })
 

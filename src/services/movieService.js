@@ -3,21 +3,21 @@ import movies from "../movies.js";
 import Movie from '../models/Movie.js';
 
 export default {
-    async getAll(filter = {}){
-        // let result = await Movie.find({});
+    getAll(filter = {}){
+        let query = Movie.find({});
 
-        // if (filter.search) {
-        //    result = result.filter(movie => movie.title.toLowerCase().includes(filter.search.toLowerCase()));
-        // }
+        if (filter.search) {
+            query = query.where({ title: filter.search });
+        }
 
-        // if (filter.genre) {
-        //     result = result.filter( movie => movie.genre.toLowerCase() === filter.genre);
-        // }
+        if (filter.genre) {
+            query = query.where({ genre: filter.genre });
+        }
 
-        // if (filter.year) {
-        //     result = result.filter(movie => movie.year === filter.year);
-        // }
-        return Movie.find({});
+        if (filter.year) {
+            query = query.where({ year: Number(filter.year) });
+        }
+        return query;
     },
     getMovie(movieId) {
          const result = Movie.findById(movieId);
