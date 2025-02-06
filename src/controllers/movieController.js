@@ -25,7 +25,11 @@ movieContorller.get('/:movieId/details', async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieService.getMovie(movieId);
     
-    res.render('details', { movie });
+    res.render('movie/details', { movie });
+});
+
+movieContorller.get('/attach-cast', (req, res) => {
+
 });
 
 export default movieContorller;
