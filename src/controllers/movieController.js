@@ -28,8 +28,8 @@ movieContorller.get('/:movieId/details', async (req, res) => {
     res.render('movie/details', { movie });
 });
 
-movieContorller.get('/attach-cast', (req, res) => {
-
+movieContorller.get('/:movieId/attach-cast', (req, res) => {
+    res.render('movie/attach-cast')
 });
 
 export default movieContorller;
