@@ -32,8 +32,9 @@ movieContorller.get('/:movieId/details', async (req, res) => {
 movieContorller.get('/:movieId/attach-cast', async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieService.getMovie(movieId); 
+    const casts = await castService.getAll({ exclude: movie.casts});
 
-    res.render('movie/attach-cast', { movie });
+    res.render('movie/attach-cast', { movie, casts });
 });
 
 movieContorller.post('/:movieId/attach-cast', async (req, res) => {
