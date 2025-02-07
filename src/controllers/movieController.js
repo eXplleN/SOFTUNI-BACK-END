@@ -24,17 +24,16 @@ movieContorller.post('/create', async(req, res) => {
 
 movieContorller.get('/:movieId/details', async (req, res) => {
     const movieId = req.params.movieId;
-    const movie = await movieService.getMovie(movieId);
+    const movie = await movieService.getOneWithCasts(movieId);
     
     res.render('movie/details', { movie });
 });
 
 movieContorller.get('/:movieId/attach-cast', async (req, res) => {
     const movieId = req.params.movieId;
-    const movie = await movieService.getMovie(movieId);
-    const casts = await castService.getAll()
+    const movie = await movieService.getMovie(movieId); 
 
-    res.render('movie/attach-cast', { movie, casts });
+    res.render('movie/attach-cast', { movie });
 });
 
 movieContorller.post('/:movieId/attach-cast', async (req, res) => {
