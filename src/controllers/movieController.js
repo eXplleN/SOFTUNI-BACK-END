@@ -26,8 +26,10 @@ movieContorller.post('/create', async(req, res) => {
 movieContorller.get('/:movieId/details', async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieService.getOneWithCasts(movieId);
+
+    const isCreator = movie.creator && movie.creator.toString() === req.user?.id;
     
-    res.render('movie/details', { movie });
+    res.render('movie/details', { movie, isCreator });
 });
 
 movieContorller.get('/:movieId/attach-cast', async (req, res) => {
