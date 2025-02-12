@@ -1,6 +1,7 @@
 import { Router } from "express";
 import movieService from "../services/movieService.js";
 import castService from "../services/castService.js";
+import { isAuth } from "../middlewares/authMiddleware.js";
 
 const movieContorller = Router();
 
@@ -10,11 +11,11 @@ movieContorller.get('/search', async (req, res) => {
     res.render('search', { movies, filter });
 })
 
-movieContorller.get('/create', (req, res) => {
+movieContorller.get('/create', isAuth, (req, res) => {
     res.render('create');
 });
 
-movieContorller.post('/create', async(req, res) => {
+movieContorller.post('/create', isAuth, async(req, res) => {
     const newMovie = req.body;
     const userId = req.user?.id;
      
@@ -32,7 +33,7 @@ movieContorller.get('/:movieId/details', async (req, res) => {
     res.render('movie/details', { movie, isCreator });
 });
 
-movieContorller.get('/:movieId/attach-cast', async (req, res) => {
+movieContorller.get('/:movieId/attach-cast', isAuth, async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieService.getMovie(movieId); 
     const casts = await castService.getAll({ exclude: movie.casts});
@@ -40,7 +41,7 @@ movieContorller.get('/:movieId/attach-cast', async (req, res) => {
     res.render('movie/attach-cast', { movie, casts });
 });
 
-movieContorller.post('/:movieId/attach-cast', async (req, res) => {
+movieContorller.post('/:movieId/attach-cast', isAuth, async (req, res) => {
     const castId = req.body.cast;
     const movieId = req.params.movieId;
     await movieService.attachCast(movieId, castId);
@@ -48,7 +49,7 @@ movieContorller.post('/:movieId/attach-cast', async (req, res) => {
     res.redirect(`/movies/${movieId}/details`)
 });
 
-movieContorller.get('/:movieId/delete', async (req, res) => {
+movieContorller.get('/:movieId/delete', isAuth, async (req, res) => {
     const movieId = req.params.movieId;
 
     const movie = await movieService.getMovie(movieId);
@@ -62,20 +63,20 @@ movieContorller.get('/:movieId/delete', async (req, res) => {
     
 });
 
-movieContorller.get('/:movieId/edit', async (req, res) => {
+movieContorller.get('/:movieId/edit', isAuth, async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieService.getMovie(movieId);
 
     res.render('movie/edit', { movie });
 });
 
-movieContorller.post('/:movieId/edit', async (req, res) => {
+movieContorller.post('/:movieId/edit', isAuth, async (req, res) => {
     const movieData = req.body;
     const movieId = req.params.movieId;
 
     await movieService.update(movieId, movieData);
 
-    res.redirect(`/movies/${movieId}/details`)
+    res.redirect(`/movies/${movieId}/`)
 
 });
 
