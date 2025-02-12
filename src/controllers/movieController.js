@@ -62,8 +62,11 @@ movieContorller.get('/:movieId/delete', async (req, res) => {
     
 });
 
-movieContorller.get('/:movieId/edit', (req, res) => {
-    res.render('movie/edit');
+movieContorller.get('/:movieId/edit', async (req, res) => {
+    const movieId = req.params.movieId;
+    const movie = await movieService.getMovie(movieId);
+
+    res.render('movie/edit', { movie });
 });
 
 export default movieContorller;
