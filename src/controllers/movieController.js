@@ -69,4 +69,14 @@ movieContorller.get('/:movieId/edit', async (req, res) => {
     res.render('movie/edit', { movie });
 });
 
+movieContorller.post('/:movieId/edit', async (req, res) => {
+    const movieData = req.body;
+    const movieId = req.params.movieId;
+
+    await movieService.update(movieId, movieData);
+
+    res.redirect(`/movies/${movieId}/details`)
+
+});
+
 export default movieContorller;
